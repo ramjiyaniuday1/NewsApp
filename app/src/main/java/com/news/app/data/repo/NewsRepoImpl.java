@@ -11,7 +11,6 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
-import io.reactivex.rxjava3.subjects.PublishSubject;
 
 public class NewsRepoImpl implements NewsRepository {
     private final NewsService newsService;
@@ -44,10 +43,9 @@ public class NewsRepoImpl implements NewsRepository {
             if (query.isEmpty()) {
                 return cachedArticles;
             } else {
-                Articles filteredArticles = new Articles(cachedArticles.articles.stream()
+                return new Articles(cachedArticles.articles.stream()
                         .filter(article -> article.title.toLowerCase().contains(query.toLowerCase()))
                         .collect(Collectors.toList()));
-                return filteredArticles;
             }
 
         }

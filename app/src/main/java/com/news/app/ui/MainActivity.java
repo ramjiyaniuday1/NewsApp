@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
@@ -43,10 +44,20 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         NewsAdapter adapter = new NewsAdapter(this);
         recyclerView.setAdapter(adapter);
+        binding.mainContent.progressBar.setVisibility(View.VISIBLE);
+
+        viewModel.loading.observe(this, loading -> {
+            if (loading) {
+                binding.mainContent.progressBar.setVisibility(View.VISIBLE);
+            } else {
+                binding.mainContent.progressBar.setVisibility(View.GONE);
+            }
+        });
 
         viewModel.newsData.observe(this, articles -> {
             Log.d(TAG, "setNews: "+articles.articles.toString());
             if (articles.articles != null) {
+                binding.mainContent.progressBar.setVisibility(View.GONE);
                 adapter.setNewsList(articles.articles);
             }
         });

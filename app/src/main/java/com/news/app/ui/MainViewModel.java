@@ -1,5 +1,7 @@
 package com.news.app.ui;
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
@@ -23,7 +25,8 @@ public class MainViewModel extends ViewModel {
     private final NewsRepository newsRepository;
     final PublishSubject<String> subject = PublishSubject.create();
     MutableLiveData<Articles> newsData = new MutableLiveData<>();
-    Articles articles;
+
+    MutableLiveData<Boolean> loading = new MutableLiveData<>(true);
     @Inject
     MainViewModel(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
@@ -42,7 +45,10 @@ public class MainViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
                     setNews(result);
-                }, Throwable::printStackTrace);
+                }, throwable -> {
+                   loading.postValue(false);
+                    Log.d(TAG, "getNews: error"+throwable.getMessage());
+                });
     }
 
     public void search(String query) {
