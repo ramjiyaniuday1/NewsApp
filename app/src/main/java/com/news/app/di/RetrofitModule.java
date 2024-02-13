@@ -1,9 +1,10 @@
 package com.news.app.di;
 
+import com.news.app.BuildConfig;
+import com.news.app.data.Constants;
 import com.news.app.data.remote.MockInterCeptor;
 import com.news.app.data.remote.NewsService;
 import com.news.app.data.remote.WebServiceInterface;
-import com.squareup.picasso.BuildConfig;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -37,7 +38,7 @@ public class RetrofitModule {
             Class<T> serviceInterface
     ) {
         return new Retrofit.Builder()
-                .baseUrl("https://newsapi.org/")
+                .baseUrl(Constants.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(gsonConverterFactory)
                 .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
@@ -52,9 +53,9 @@ public class RetrofitModule {
     ) {
 
         OkHttpClient.Builder client = new OkHttpClient.Builder();
-        //if (BuildConfig.DEBUG) {
+        if (BuildConfig.MOCK_API.equalsIgnoreCase("true")) {
             client.addInterceptor(mockInterceptor);
-       // }
+        }
         return client.build();
     }
 

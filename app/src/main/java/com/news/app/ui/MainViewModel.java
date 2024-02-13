@@ -44,6 +44,7 @@ public class MainViewModel extends ViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
+                    loading.postValue(false);
                     setNews(result);
                 }, throwable -> {
                    loading.postValue(false);

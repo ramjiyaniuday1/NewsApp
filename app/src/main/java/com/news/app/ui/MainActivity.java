@@ -57,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         viewModel.newsData.observe(this, articles -> {
             Log.d(TAG, "setNews: "+articles.articles.toString());
             if (articles.articles != null) {
-                binding.mainContent.progressBar.setVisibility(View.GONE);
                 adapter.setNewsList(articles.articles);
             }
         });

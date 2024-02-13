@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Article{
     public String publishedAt;
@@ -58,6 +59,22 @@ public class Article{
 
     public void setUrlToImage(String urlToImage) {
         this.urlToImage = urlToImage;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Article article = (Article) obj;
+        return Objects.equals(title, article.title) &&
+                Objects.equals(publishedAtDate, article.publishedAtDate) &&
+                Objects.equals(url, article.url) &&
+                Objects.equals(urlToImage, article.urlToImage) &&
+                Objects.equals(publishedAt, article.publishedAt);
     }
 
 }
