@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.observers.TestObserver;
 
 public class NewsRepoImplTest {
@@ -43,7 +44,7 @@ public class NewsRepoImplTest {
     @Test
     public void testGetNews() {
 
-        when(newsService.getNews()).thenReturn(Observable.just(articlesDto));
+        when(newsService.getNews()).thenReturn(Single.just(articlesDto));
 
         TestObserver<Articles> testObserver = newsRepoImpl.getNews().test();
 
@@ -57,7 +58,7 @@ public class NewsRepoImplTest {
     @Test
     public void testFilterNews() {
 
-        when(newsService.getNews()).thenReturn(Observable.just(articlesDto));
+        when(newsService.getNews()).thenReturn(Single.just(articlesDto));
 
         newsRepoImpl.getNews().subscribe(); // to fill the cache
 
@@ -69,7 +70,7 @@ public class NewsRepoImplTest {
 
     @Test
     public void testGetNewsEmpty() {
-        when(newsService.getNews()).thenReturn(Observable.just(new ArticlesDto(Collections.emptyList())));
+        when(newsService.getNews()).thenReturn(Single.just(new ArticlesDto(Collections.emptyList())));
 
         TestObserver<Articles> testObserver = newsRepoImpl.getNews().test();
 
@@ -79,7 +80,7 @@ public class NewsRepoImplTest {
 
     @Test
     public void testGetNewsError() {
-        when(newsService.getNews()).thenReturn(Observable.error(new JsonParseException("json parsing failed")));
+        when(newsService.getNews()).thenReturn(Single.error(new JsonParseException("json parsing failed")));
 
         TestObserver<Articles> testObserver = newsRepoImpl.getNews().test();
 
@@ -89,7 +90,7 @@ public class NewsRepoImplTest {
     @Test
     public void testFilterNewsMatchNone() {
 
-        when(newsService.getNews()).thenReturn(Observable.just(articlesDto));
+        when(newsService.getNews()).thenReturn(Single.just(articlesDto));
 
         newsRepoImpl.getNews().subscribe(); // to fill the cache
 
@@ -101,7 +102,7 @@ public class NewsRepoImplTest {
     @Test
     public void testFilterNewsEmptyQuery() {
 
-        when(newsService.getNews()).thenReturn(Observable.just(articlesDto));
+        when(newsService.getNews()).thenReturn(Single.just(articlesDto));
 
         newsRepoImpl.getNews().subscribe(); // to fill the cache
 

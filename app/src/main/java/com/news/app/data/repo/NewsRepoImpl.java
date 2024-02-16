@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 
 public class NewsRepoImpl implements NewsRepository {
     private final NewsService newsService;
@@ -20,7 +21,7 @@ public class NewsRepoImpl implements NewsRepository {
     public NewsRepoImpl(NewsService newsService) {
         this.newsService = newsService;
     }
-    public @NonNull Observable<Articles> getNews() {
+    public @NonNull Single<Articles> getNews() {
         return newsService.getNews()
                 .map(articlesDto -> {
                     articlesDto.sortArticles();

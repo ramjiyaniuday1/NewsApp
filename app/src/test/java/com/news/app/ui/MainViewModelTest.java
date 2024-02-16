@@ -23,6 +23,7 @@ import java.util.Arrays;
 
 import io.reactivex.rxjava3.android.plugins.RxAndroidPlugins;
 import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MainViewModelTest {
@@ -49,7 +50,7 @@ public class MainViewModelTest {
 
     @Test
     public void testGetNews() throws InterruptedException {
-        when(newsRepository.getNews()).thenReturn(Observable.just(articles));
+        when(newsRepository.getNews()).thenReturn(Single.just(articles));
 
         mainViewModel.getNews();
 
@@ -70,7 +71,7 @@ public class MainViewModelTest {
 
     @Test
     public void testLoadingState() throws InterruptedException {
-        when(newsRepository.getNews()).thenReturn(Observable.just(articles));
+        when(newsRepository.getNews()).thenReturn(Single.just(articles));
 
         // Assert that loading is true before calling getNews
         assertEquals(true, mainViewModel.loading.getValue());

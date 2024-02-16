@@ -61,12 +61,7 @@ public class MainViewModel extends ViewModel {
                 .distinctUntilChanged()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<String>() {
-                    @Override
-                    public void accept(String result) {
-                        setNews(newsRepository.filterNews(result));
-                    }
-                }, throwable -> {
+                .subscribe(result -> setNews(newsRepository.filterNews(result)), throwable -> {
                     Log.d(TAG, "searchObservable: error"+throwable.getMessage());
                 });
     }
