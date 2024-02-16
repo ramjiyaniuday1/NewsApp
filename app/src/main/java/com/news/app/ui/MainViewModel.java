@@ -41,13 +41,12 @@ public class MainViewModel extends ViewModel {
 
     public void getNews() {
         newsRepository.getNews()
+                .doFinally(() -> loading.postValue(false))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(result -> {
-                    loading.postValue(false);
                     setNews(result);
                 }, throwable -> {
-                   loading.postValue(false);
                     Log.d(TAG, "getNews: error"+throwable.getMessage());
                 });
     }
@@ -67,6 +66,8 @@ public class MainViewModel extends ViewModel {
                     public void accept(String result) {
                         setNews(newsRepository.filterNews(result));
                     }
+                }, throwable -> {
+                    Log.d(TAG, "searchObservable: error"+throwable.getMessage());
                 });
     }
 }

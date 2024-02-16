@@ -23,18 +23,15 @@ public class NewsRepoImpl implements NewsRepository {
     public @NonNull Observable<Articles> getNews() {
         return newsService.getNews()
                 .map(articlesDto -> {
-                     Collections.sort(articlesDto.articleDtos, (o1, o2) -> o2.getPublishedAt().compareTo(o1.getPublishedAt()));
-                     return articlesDto.mapToArticles();
-                })
-                .map(articles -> {
+                    articlesDto.sortArticles();
+                    Articles articles = articlesDto.mapToArticles();
                     if (articles.articles.isEmpty() && cachedArticles != null) {
                         return cachedArticles;
                     } else {
                         cachedArticles = articles;
                         return articles;
                     }
-                })
-                .flatMap(articles -> Observable.just(articles));
+                });
     }
 
     @Override

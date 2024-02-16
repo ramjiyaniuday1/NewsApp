@@ -47,8 +47,7 @@ public class NewsRepoImplTest {
 
         TestObserver<Articles> testObserver = newsRepoImpl.getNews().test();
 
-
-        Collections.sort(articlesDto.articleDtos, (o1, o2) -> o2.getPublishedAt().compareTo(o1.getPublishedAt()));
+        articlesDto.sortArticles();
         Articles expected = articlesDto.mapToArticles();
 
         testObserver.assertNoErrors();

@@ -24,7 +24,6 @@
         app:layout_constraintBottom_toTopOf="@id/news_date"
         app:layout_constraintStart_toEndOf="@+id/news_image"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/white"
         tools:text="news title" />
 
     <TextView
@@ -36,7 +35,6 @@
         app:layout_constraintBottom_toBottomOf="@id/read_news"
         app:layout_constraintStart_toEndOf="@+id/news_image"
         app:layout_constraintTop_toBottomOf="@id/news_tile"
-        android:textColor="@color/white"
         tools:text="news title"
         />
 
@@ -50,14 +48,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/news_image"
         app:layout_constraintTop_toBottomOf="@id/news_date"
-        android:textColor="@color/white"
         android:text="Read News"
         />
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        app:dividerColor="@color/white"
+        app:dividerColor="@color/gray"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
